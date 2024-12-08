@@ -1,0 +1,505 @@
+version = 4.2
+
+//
+// Saved by sw version: 2024.4
+//
+
+model "EEL7836-08202-UFSC" {
+    configuration {
+        hil_device = "HIL402"
+        hil_configuration_id = 1
+        simulation_method = exact
+        simulation_time_step = auto
+        simulation_discret_scaling = 1.0
+        dsp_timer_periods = 100e-6, 50e-3
+        ss_calc_method = "systematic elimination"
+        enb_pole_shift = True
+        enb_gds_oversampling = True
+        show_modes = False
+        device_ao_limit_enable = False
+        reset_analog_outputs_on_sim_stop = True
+        reset_analog_outputs_on_sim_stop_mode = Offset values
+        reset_digital_outputs_on_sim_stop = True
+        vhil_adio_loopback = False
+        cpl_stb = False
+        enb_dep_sw_detect = False
+        code_section = "internal memory"
+        data_section = "internal memory"
+        sys_sp_rate_1 = 0.0001
+        sys_sp_rate_2 = 0.05
+        sys_real_type_precision = "default"
+        user_real_type_precision = "default"
+        sys_cpu_optimization = "high"
+        user_cpu_optimization = "high"
+        user_cpu_part_option = "default"
+        matrix_based_reduction = True
+        cpl_dynamics_analysis = False
+        export_ss_to_pickle = False
+        ground_scope_core = False
+        dss_num_tol = 1e-15
+        cce_platform = "generic"
+        cce_use_relative_names = False
+        cce_type_mapping_real = "double"
+        cce_type_mapping_uint = "unsigned int"
+        cce_type_mapping_int = "int"
+        cce_platform = "generic"
+        cce_use_relative_names = False
+        cce_type_mapping_real = "double"
+        cce_type_mapping_uint = "unsigned int"
+        cce_type_mapping_int = "int"
+        cce_directory = ""
+        cce_custom_type_int = ""
+        cce_custom_type_uint = ""
+        cce_custom_type_real = ""
+        tunable_params = "component defined"
+        sp_compiler_type = "C compiler"
+        sig_stim = "off"
+        export_resource_list = ""
+        export_dependency_list = ""
+        excluded_resource_list = ""
+        excluded_component_from_locking_list = ""
+        export_out_file = ""
+        export_lock_top_level = True
+        export_encrypt_library = True
+        export_encrypt_resources = True
+        solver_type = "DAE"
+        integration_method = "BDF"
+        max_sim_step = 1e-4
+        simulation_time = 1.0
+        abs_tol = 1e-3
+        rel_tol = 1e-3
+        init_sim_step = 1e-6
+        r_on_sw = 1e-3
+        v_on_diode = 0.2
+        data_sampling_rate = 0
+        feedthrough_validation_error_level = error
+    }
+
+    component Subsystem Root {
+        component "core/Half Bridge" "Half Bridge1" {
+            carrier_freq = "40000.0"
+            dtv_flag_en = "False"
+            fvd_def_method = "LUT"
+            signal_access = "Inherit"
+        }
+        [
+            position = 8440, 8236
+            size = 80, 192
+        ]
+
+        component "core/Inductor" L1 {
+        }
+        [
+            position = 8608, 8236
+        ]
+
+        component "core/Capacitor" C1 {
+            capacitance = "1e-3"
+            signal_access = "Inherit"
+        }
+        [
+            position = 8692, 8300
+            rotation = right
+        ]
+
+        component "core/Photovoltaic Panel" "Photovoltaic Panel1" {
+        }
+        [
+            position = 8080, 8228
+            rotation = right
+            size = 64, 64
+        ]
+
+        component "core/Ground" gnd1 {
+        }
+        [
+            position = 8440, 8396
+        ]
+
+        component "core/Voltage Measurement" Vpv {
+            bw_limit = "True"
+            frequency = "200"
+            signal_access = "Inherit"
+        }
+        [
+            position = 8256, 8236
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Current Measurement" Ipv {
+            bw_limit = "True"
+            frequency = "200"
+            signal_access = "Inherit"
+        }
+        [
+            position = 8340, 8132
+            size = 64, 32
+        ]
+
+        component "core/Capacitor" C2 {
+            capacitance = "1e-3"
+            signal_access = "Inherit"
+        }
+        [
+            position = 8176, 8228
+            rotation = right
+        ]
+
+        component "core/Voltage Measurement" Vout {
+        }
+        [
+            position = 8896, 8300
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Voltage Measurement" Vsw {
+        }
+        [
+            position = 8548, 8296
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Current Measurement" Iout {
+        }
+        [
+            position = 8752, 8236
+            size = 64, 32
+        ]
+
+        component "core/Voltage Source" Vbat {
+        }
+        [
+            position = 8792, 8320
+            rotation = right
+        ]
+
+        component "core/Inductor" L2 {
+            inductance = "1e-6"
+            signal_access = "Inherit"
+        }
+        [
+            position = 8128, 8132
+        ]
+
+        component "core/Voltage Measurement" VtermistorMotor {
+        }
+        [
+            position = 9120, 8456
+            rotation = right
+            size = 64, 32
+        ]
+
+        component "core/Voltage Source" VoTermistorMotor {
+            init_const_value = "1.65"
+        }
+        [
+            position = 8952, 8456
+            rotation = right
+        ]
+
+        component "core/Output Settings" "Output Settings1" {
+            analog_outputs = "[\'AO1;..VtermistorMotor.Mask@top.voltage;1;0.00;False;-10;10\']"
+        }
+        [
+            position = 8192, 8456
+        ]
+
+        junction Junction1 pe
+        [
+            position = 8440, 8360
+        ]
+
+        junction Junction2 pe
+        [
+            position = 8440, 8360
+        ]
+
+        junction Junction4 pe
+        [
+            position = 8256, 8360
+        ]
+
+        junction Junction5 pe
+        [
+            position = 8256, 8132
+        ]
+
+        junction Junction8 pe
+        [
+            position = 8176, 8132
+        ]
+
+        junction Junction9 pe
+        [
+            position = 8176, 8360
+        ]
+
+        junction Junction10 pe
+        [
+            position = 8692, 8236
+        ]
+
+        junction Junction11 pe
+        [
+            position = 8692, 8360
+        ]
+
+        junction Junction14 pe
+        [
+            position = 8548, 8236
+        ]
+
+        junction Junction15 pe
+        [
+            position = 8548, 8360
+        ]
+
+        junction Junction16 pe
+        [
+            position = 8792, 8360
+        ]
+
+        junction Junction17 pe
+        [
+            position = 8792, 8236
+        ]
+
+        junction Junction18 pe
+        [
+            position = 8952, 8496
+        ]
+
+        connect Junction1 "Half Bridge1.neg_out" as Connection7
+        [
+            breakpoints = 8440, 8360
+        ]
+        connect Junction2 Junction1 as Connection10
+        connect gnd1.node Junction2 as Connection11
+        connect Junction4 Junction1 as Connection16
+        [
+            breakpoints = 8440, 8360
+        ]
+        connect Vpv.n_node Junction4 as Connection17
+        connect Junction5 Vpv.p_node as Connection20
+        connect "Half Bridge1.pos_out" Ipv.n_node as Connection22
+        connect Ipv.p_node Junction5 as Connection23
+        connect Junction8 Junction5 as Connection31
+        connect C2.p_node Junction8 as Connection32
+        connect "Photovoltaic Panel1.n_node" Junction9 as Connection33
+        [
+            breakpoints = 8124, 8360; 8148, 8360
+        ]
+        connect Junction9 Junction4 as Connection34
+        connect C2.n_node Junction9 as Connection35
+        connect C1.p_node Junction10 as Connection38
+        connect Junction10 L1.n_node as Connection39
+        [
+            breakpoints = 8692, 8236
+        ]
+        connect C1.n_node Junction11 as Connection41
+        connect Iout.p_node Junction10 as Connection53
+        connect L1.p_node Junction14 as Connection54
+        connect Junction14 "Half Bridge1.a_in" as Connection55
+        connect Vsw.p_node Junction14 as Connection56
+        connect Junction11 Junction15 as Connection57
+        [
+            breakpoints = 8692, 8360
+        ]
+        connect Junction15 Junction2 as Connection58
+        connect Vsw.n_node Junction15 as Connection59
+        connect Junction11 Junction16 as Connection70
+        connect Junction16 Vout.n_node as Connection71
+        [
+            breakpoints = 8808, 8360; 8816, 8360
+        ]
+        connect Vbat.n_node Junction16 as Connection72
+        connect Iout.n_node Junction17 as Connection73
+        connect Junction17 Vout.p_node as Connection74
+        [
+            breakpoints = 8808, 8236; 8816, 8236
+        ]
+        connect Vbat.p_node Junction17 as Connection75
+        connect "Photovoltaic Panel1.p_node" L2.p_node as Connection76
+        connect L2.n_node Junction8 as Connection77
+        connect VoTermistorMotor.p_node VtermistorMotor.p_node as Connection811
+        connect VtermistorMotor.n_node Junction18 as Connection813
+        connect Junction18 Junction15 as Connection814
+        connect VoTermistorMotor.n_node Junction18 as Connection815
+    }
+
+    default {
+        "core/Capacitor" {
+            signal_access = "inherit"
+            capacitance = "1e-6"
+            initial_voltage = "0"
+            pole_shift_ignore = "False"
+            visible = "True"
+        }
+
+        "core/Inductor" {
+            signal_access = "inherit"
+            inductance = "1e-3"
+            initial_current = "0.0"
+            pole_shift_ignore = "False"
+            visible = "True"
+        }
+
+        "core/Output Settings" {
+            analog_outputs = "[]"
+            digital_outputs = "[]"
+            hil_id = "0"
+            signal = ""
+        }
+
+        "core/Voltage Source" {
+            sig_input = "False"
+            type = "signal generator"
+            param_set = "1phase"
+            parent_label = ""
+            dtsm_switch_name = ""
+            addr = "0"
+            spc_nb = "0"
+            execution_rate = "100e-6"
+            cpd_visible = "True"
+            enable_snb = "False"
+            snb_type = "R2"
+            R2 = "0.0"
+            L1 = "0.1"
+            override_signal_name = "False"
+            signal_name = ""
+            init_source_nature = "Constant"
+            init_const_value = "0.0"
+            init_rms_value = "0.0"
+            init_frequency = "50.0"
+            init_phase = "0.0"
+        }
+
+        "core/Current Measurement" {
+            signal_access = "inherit"
+            bw_limit = "False"
+            frequency = "10e3"
+            comparator_enable = "False"
+            operator = "greater"
+            threshold = "0"
+            cmp_abs_value = "False"
+            feed_forward = "false"
+            sig_output = "False"
+            sig_output_filt_and_full_bw = "False"
+            execution_rate = "100e-6"
+            addr = "0"
+            nd_msr_estimation = "false"
+            dev_cpl_msr = "false"
+            host_device = "0"
+            output_to_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            visible = "True"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+
+        "core/Half Bridge" {
+            signal_access = "inherit"
+            model_type = "Global GDS oversampling"
+            ctrl_src = "Digital input per switch"
+            op_mode = "Fixed carrier frequency"
+            carrier_freq = "10000.0"
+            phase_op_mode = "Fixed carrier phase offset"
+            carr_ph_offset = "0.0"
+            d_time = "5e-6"
+            ref_sig_min_max = "[-1.0, 1.0]"
+            load_mode = "on min"
+            execution_rate = "inherit"
+            S_top = "1"
+            S_top_logic = "active high"
+            S_bot = "2"
+            S_bot_logic = "active high"
+            S_top_I = "False"
+            S_bot_I = "False"
+            _control_property = "all high"
+            switches_names_at_mask = "[]"
+            pwm_enabling = "False"
+            pwm_enable_di = "13"
+            pwm_enable_inv = "active high"
+            delay_enabled = "False"
+            fixed_delay = "1e-6"
+            var_delay_lut = "[-10.0, 1e-6, 10.0, 1e-6]"
+            preview_var_delay = "Preview"
+            vout_cmp_pullup_mode = "False"
+            vout_cmp_timeout = "5e-6"
+            show_monitoring = "False"
+            fvd = "False"
+            losses_estimation = "False"
+            fvd_def_method = "Voltage and Resistance"
+            Import_igbt_xml = "not selected"
+            Import_diode_xml = "not selected"
+            Switch_type = "IGBT"
+            Vce = "1.3"
+            Rce = "0"
+            Vd = "1.2"
+            Rd = "0"
+            i_sw = "[0.0, 6.0, 12.0, 18.0, 24.0]"
+            v_sw = "[0.0, 600.0]"
+            temp_sw = "[25.0, 50.0, 75.0, 100.0, 125.0]"
+            vce_table_out = "[1.3, 1.3, 1.3, 1.3, 1.3]"
+            vd_table_out = "[1.2, 1.2, 1.2, 1.2, 1.2]"
+            et_on_table_out = "[[0.0, 0.0275e-3, 0.15e-3, 0.275e-3, 0.3e-3], [0.35*3.8e-3, 0.4*3.8e-3, 0.8*3.8e-3, 0.68*3.8e-3, 0.9*3.8e-3], [0.65*3.8e-3, 0.9*3.8e-3, 1.2*3.8e-3, 1.5*3.8e-3, 1.7*3.8e-3], [0.9*3.8e-3, 1.3*3.8e-3, 1.7*3.8e-3, 1.9*3.8e-3, 2.25*3.8e-3], [1.1*3.8e-3, 1.7*3.8e-3, 2.1*3.8e-3, 2.3*3.8e-3, 2.5*3.8e-3]]"
+            et_off_table_out = "[[0.0, 0.0275e-3, 0.15e-3, 0.275e-3, 0.3e-3], [0.35*2.1e-3, 0.4*2.1e-3, 0.8*2.1e-3, 0.68*2.1e-3, 0.9*2.1e-3], [0.65*2.1e-3, 0.9*2.1e-3, 1.2*2.1e-3, 1.5*2.1e-3, 1.7*2.1e-3], [0.9*2.1e-3, 1.3*2.1e-3, 1.7*2.1e-3, 1.9*2.1e-3, 2.25*2.1e-3], [1.1*2.1e-3, 1.7*2.1e-3, 2.1*2.1e-3, 2.3*2.1e-3, 2.5*2.1e-3]]"
+            ed_off_table_out = "[[0.0, 0.0275e-3, 0.15e-3, 0.275e-3, 0.3e-3], [0.35*2.2e-3, 0.4*2.2e-3, 0.8*2.2e-3, 0.68*2.2e-3, 0.9*2.2e-3], [0.65*2.2e-3, 0.9*2.2e-3, 1.2*2.2e-3, 1.5*2.2e-3, 1.7*2.2e-3], [0.9*2.2e-3, 1.3*2.2e-3, 1.7*2.2e-3, 1.9*2.2e-3, 2.25*2.2e-3], [1.1*2.2e-3, 1.7*2.2e-3, 2.1*2.2e-3, 2.3*2.2e-3, 2.5*2.2e-3]]"
+            temp_estimation = "False"
+            thermal_networks_type = "Foster"
+            switch_Rth = "[0.159, 0.133, 0.120, 0.038]"
+            switch_Tth = "[1.1e-1, 1.56e-2, 1.35e-3, 1.51e-4]"
+            switch_Cth = "[0.0029, 0.0097, 0.1068, 0.8500]"
+            diode_Rth = "[0.159, 0.133, 0.120, 0.038]"
+            diode_Tth = "[1.1e-1, 1.56e-2, 1.35e-3, 1.51e-4]"
+            diode_Cth = "[0.0029, 0.0097, 0.1068, 0.8500]"
+            loss_exec_rate = "100e-6"
+            visualize_luts = "Visualize Lookup Tables"
+            show_cnt_out = "False"
+            PESB_Optimization = "True"
+            dtv_flag_en = "True"
+            reserved_parameter1 = "0"
+            predictive_diode_turn_off = "False"
+        }
+
+        "core/Photovoltaic Panel" {
+            signal_access = "inherit"
+            Cpv = "1e-6"
+            initial_voltage = "0"
+            sp_enable = "False"
+            mpp_enable = "False"
+            execution_rate = "100e-6"
+            normalized_en = "False"
+            Tslow = "200e-6"
+            hil_cpu_core_id = "0"
+        }
+
+        "core/Voltage Measurement" {
+            signal_access = "inherit"
+            bw_limit = "False"
+            frequency = "10e3"
+            comparator_enable = "False"
+            operator = "greater"
+            threshold = "0"
+            cmp_abs_value = "False"
+            feed_forward = "false"
+            sig_output = "False"
+            sig_output_filt_and_full_bw = "False"
+            execution_rate = "100e-6"
+            addr = "0"
+            nd_msr_estimation = "false"
+            dev_cpl_msr = "false"
+            host_device = "0"
+            output_to_device = "0"
+            dev_cpl_index = "0"
+            dev_cpl_var_nb = "0"
+            visible = "True"
+            override_signal_name = "False"
+            signal_name = ""
+        }
+    }
+}
